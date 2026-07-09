@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+
+# Jupyter
+*.ipynb_checkpoints/
+
+# Data - raw downloads are large
+data/raw/
+data/nemu_output/
+
+# NeMu pipeline work dirs
+2nemu_pipeline/work/
+
+# Nextflow cache/traces
+.nextflow/
+*.nextflow.log*
+trace-*.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Git
+*.orig
