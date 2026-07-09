@@ -1,7 +1,7 @@
 #!/bin/bash
 
-PATH_TO_NEMU=/home/zengjl/WorkSpace/mtdna-gobiiformes-mutspec/2nemu_pipeline/nemu.nf
-PATH_TO_CONFIG=/home/zengjl/bio_soft/nemu-pipeline-nf/nextflow.config
+PATH_TO_NEMU=/home/zengjl/gitclone/nemu-pipeline-nf/main.nf
+PATH_TO_CONFIG=/home/zengjl/gitclone/nemu-pipeline-nf/nextflow.config
 PATH_TO_INPUT=/home/zengjl/WorkSpace/mtdna-gobiiformes-mutspec/data/nemu_input
 PATH_TO_OUTPUT=/home/zengjl/WorkSpace/mtdna-gobiiformes-mutspec/data/nemu_output
 

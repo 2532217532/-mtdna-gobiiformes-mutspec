@@ -1,5 +1,4 @@
-// batch.nf - 批量运行 NEMU
-
+// batch_nemu.nf - 批量运行 NeMu (适配官方 nemu-pipeline-nf)
 nextflow.enable.dsl = 2
 
 params.input_dir = "/home/zengjl/WorkSpace/mtdna-gobiiformes-mutspec/data/nemu_input"
@@ -30,8 +29,8 @@ workflow {
 
 process RUN_NEMU {
     tag { "$gene/$base" }
-    cpus 4
-    errorStrategy 'ignore'  // ✅ 改这里
+    cpus 1
+    errorStrategy 'ignore'
     
     input:
     tuple val(base), path(fasta), val(species), val(gene), val(out_dir), val(db_path)
@@ -45,19 +44,28 @@ process RUN_NEMU {
     
     echo "🚀 处理: $gene/$base"
     
-    nextflow run /home/zengjl/bio_soft/nemu-pipeline-nf/main.nf \
-        -c /home/zengjl/bio_soft/nemu-pipeline-nf/nextflow.config \
-        -process.cpus=4 \
+    nextflow run /home/zengjl/gitclone/nemu-pipeline-nf/main_nofilter.nf \
+        -c /home/zengjl/gitclone/nemu-pipeline-nf/nextflow.config \
         -w ${out_dir}/work \
         --resume \
         -with-trace ${out_dir}/trace.txt \
         -output-dir ${out_dir} \
-        --input_type protein \
-        --input $fasta \
-        --species_name "$species" \
-        --gencode 2 \
-        --db $db_path \
+        --input ${fasta} \
+        --inputType protein \
+        --speciesName "$species" \
+        --gencode ${params.gencode} \
+        --db ${db_path} \
         --taxdump ${params.taxdump} \
+        --threads 1 \
+        --minSeqs 3 \
+        --model "GTR+FO+G6+I" \
+        --modelAsr "GTR+FO+G6+I" \
+        --runTreeShrink true \
+        --probaArg true \
+        --uncertaintyCoef false \
+        --consCatCutoff 1 \
+        --plot false \
+        --spectraType syn \
         > ${out_dir}/nemu.log 2>&1
     """
 }
